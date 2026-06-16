@@ -1,30 +1,87 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import HomePage from './pages/Home';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
+import ProductsPage from './pages/Products';
+import ProductDetailPage from './pages/ProductDetail';
+import CartPage from './pages/Cart';
+import CheckoutPage from './pages/Checkout';
+import OrdersPage from './pages/Orders';
+import OrderDetailPage from './pages/OrderDetail';
 import './index.css';
+import './styles/shop.css';
 
-// Placeholder pages (to be built out)
-const PlaceholderPage = ({ title }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: '#94a3b8' }}>
-    <h2 style={{ fontSize: '2rem', color: '#e2e8f0', marginBottom: '0.5rem' }}>{title}</h2>
-    <p>🚧 This page is coming soon.</p>
+const NotFoundPage = () => (
+  <div className="page">
+    <div className="empty-state">
+      <h3>404 — Page Not Found</h3>
+      <p>The page you&apos;re looking for doesn&apos;t exist.</p>
+    </div>
   </div>
 );
+
+function AppRoutes() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products/:id" element={<ProductDetailPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <CartPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <CheckoutPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <OrdersPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders/:id"
+            element={
+              <ProtectedRoute>
+                <OrderDetailPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
+    </>
+  );
+}
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <main>
-        <Routes>
-          <Route path="/"         element={<HomePage />} />
-          <Route path="/products" element={<PlaceholderPage title="Products" />} />
-          <Route path="/cart"     element={<PlaceholderPage title="Cart" />} />
-          <Route path="/login"    element={<PlaceholderPage title="Login" />} />
-          <Route path="/register" element={<PlaceholderPage title="Register" />} />
-          <Route path="*"         element={<PlaceholderPage title="404 – Page Not Found" />} />
-        </Routes>
-      </main>
+      <AuthProvider>
+        <CartProvider>
+          <AppRoutes />
+        </CartProvider>
+      </AuthProvider>
     </Router>
   );
 }

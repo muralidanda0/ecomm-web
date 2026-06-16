@@ -7,6 +7,8 @@ const connectDB    = require('./src/config/db');
 const healthRoutes   = require('./src/routes/health.routes');
 const authRoutes     = require('./src/routes/authRoutes');
 const productRoutes  = require('./src/routes/productRoutes');
+const cartRoutes     = require('./src/routes/cartRoutes');
+const orderRoutes    = require('./src/routes/orderRoutes');
 
 // ── Middleware ────────────────────────────────────────────────────────────────
 const errorHandler = require('./src/middleware/errorHandler');
@@ -34,6 +36,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/health',    healthRoutes);
 app.use('/api/auth',      authRoutes);
 app.use('/api/products',  productRoutes);
+app.use('/api/cart',      cartRoutes);
+app.use('/api/orders',    orderRoutes);
 
 // ── 404 Handler ───────────────────────────────────────────────────────────────
 app.use((req, res) => {
