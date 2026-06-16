@@ -202,9 +202,4 @@ Here's what's planned for future versions:
 **muralidanda0**
 GitHub: [@muralidanda0](https://github.com/muralidanda0)
 
----
 
-## 📄 License
-
-This project and its source code are the exclusive property of **muralidanda0**.
-All rights reserved. Unauthorized copying, distribution, or modification is strictly prohibited.
