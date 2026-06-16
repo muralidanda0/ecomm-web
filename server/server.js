@@ -4,8 +4,9 @@ const cors         = require('cors');
 const connectDB    = require('./src/config/db');
 
 // ── Routes ───────────────────────────────────────────────────────────────────
-const healthRoutes = require('./src/routes/health.routes');
-const authRoutes   = require('./src/routes/authRoutes');
+const healthRoutes   = require('./src/routes/health.routes');
+const authRoutes     = require('./src/routes/authRoutes');
+const productRoutes  = require('./src/routes/productRoutes');
 
 // ── Middleware ────────────────────────────────────────────────────────────────
 const errorHandler = require('./src/middleware/errorHandler');
@@ -30,8 +31,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ── API Routes ────────────────────────────────────────────────────────────────
-app.use('/api/health', healthRoutes);
-app.use('/api/auth',   authRoutes);
+app.use('/api/health',    healthRoutes);
+app.use('/api/auth',      authRoutes);
+app.use('/api/products',  productRoutes);
 
 // ── 404 Handler ───────────────────────────────────────────────────────────────
 app.use((req, res) => {
